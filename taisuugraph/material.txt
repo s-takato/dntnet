@@ -1,0 +1,59 @@
+タイトル::slide0
+::\newcommand{\hako}[4][6]{\fbox{\raisebox{#2 mm}{$\mathstrut$}\raisebox{-#3 mm}{$\mathstrut$}\Ctab{#1 mm}{#4}}}
+::\def\rad{\;\mathrm{rad}}
+::\newcommand{\sfrac}[3][0.65]{\scalebox{#1}{$\frac{#2}{#3}$}}
+
+\renewcommand{\hako}[4][-1]{%
+\setcounter{ketpicctra}{#2}%
+\divide\value{ketpicctra} by 2%
+\setcounter{ketpicctrb}{#3}%
+\divide\value{ketpicctrb} by 2%
+\setcounter{ketpicctrc}{\theketpicctrb}%
+\addtocounter{ketpicctrc}{#1}%
+\def\kettmp{
+\begin{picture}%
+(#2, #3)(0,0)%
+\settowidth{\Width}{#4}\setlength{\Width}{-0.5\Width}%
+\settoheight{\Height}{#4}\settodepth{\Depth}{#4}\setlength{\Height}{-0.5\Height}\setlength{\Depth}{0.5\Depth}\addtolength{\Height}{\Depth}%
+\put(\theketpicctra,\theketpicctrb){\hspace*{\Width}\raisebox{\Height}{#4}}%
+\end{picture}%
+}%
+{\unitlength=1mm%
+\raisebox{-\theketpicctrc mm}{\fbox{\kettmp}}%
+}
+}
+
+%%%%%%%%%%%%
+new::対数関数$y=\log_a x$のグラフ
+%repeat=,para=exp2log:{0}:se{67}{10}:input:0.5
+\slidepage
+
+itemize
+item::対数の意味は　\fbox{$y=\log_a x\Longleftrightarrow x=a^y$}
+item::$y=a^x$の$x,y$を交換
+item::$x$軸と$y$軸も入れ替わる
+item::$x$軸が横，$y$軸が縦になるようにする
+item::次のURLをクリックして実行してみよう\\
+\normalsize\url{https://s-takato.github.io/dntnet/taisuugraph/sisuu2taisuu.html}
+end
+
+%%%%%%%%%%%%
+new::指数関数と対数関数
+%repeat=4
+\slidepage
+
+layer::{120}{0}
+%[1]::putnote::se{63}{17}::taisuu3,0.5
+%[2]::putnote::se{63}{17}::taisuu5,0.5
+%[3]::putnote::se{63}{17}::taisuu10,0.5
+%[4,-]::putnote::se{63}{17}::taisuum2,0.5
+end
+
+itemize
+item::{\normalsize\url{https://s-takato.github.io/dntnet/taisuugraph/taisuu.html}}
+item::$y=a^x$と$y=\log_a x$は\\$y=x$に関して対称
+item::このような関数を\\{\color{red}逆関数}という
+item::対数関数と指数関数は\\
+\hspace*{2zw}逆関数どうし
+end
+
