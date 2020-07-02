@@ -231,6 +231,90 @@ Toupper(str):=(
   );
   out;
 );
+Setglist():=(
+  GCLISTadd=GCLIST;
+  VLISTadd=VLIST; //200124[2lines]
+  FUNLISTadd=FUNLIST;
+);
+Addglist():=(
+  GCLIST=GCLISTadd;
+  VLIST=VLISTadd; //200124[2lines]
+  FUNLIST=FUNLISTadd;
+);
+Slider(ptstr,p1,p2):=Slider(ptstr,p1,p2,[]);
+Slider(ptstr,p1,p2,options):=(//190120
+  regional(pA,pB,pC,color,thick,sep,tmp,tmp1,tmp2);
+  color="Color=0.6*[0,0,1]"; //190120from
+  thick="size->2";
+  sep=0.3; //190824
+  forall(options,
+    tmp=Toupper(substring(#,0,1));
+    if(tmp=="C",
+      color=#;
+    );
+    if(tmp=="T",
+      tmp=Strsplit(#,"=");
+      thick="size->"+tmp_2;
+    );
+    if(tmp=="S",//190824from
+      tmp=Strsplit(#,"=");
+      sep=parse(tmp_2);
+    ); //190824to
+  );
+  tmp=Indexall(ptstr,"-");
+  if(length(tmp)>0,
+    pA=substring(ptstr,0,tmp_1-1); //190824from
+    pC=substring(ptstr,tmp_1,tmp_2-1);
+    pB=substring(ptstr,tmp_2,length(ptstr));
+    parse(pA).xy=p1;
+    parse(pB).xy=p2; //190824to
+    tmp1=pC+"position"; //190827from
+    if(!islist(parse(tmp1)),
+      tmp2=parse(pC).xy;
+      if(|tmp2-p1|<0.1,tmp2=p1+0.1*(p2-p1)/|p2-p1|);
+      if(|tmp2-p2|<0.1,tmp2=p2+0.1*(p1-p2)/|p1-p2|);
+      tmp=tmp1+"="+textformat(tmp2,6)+";";
+      parse(tmp);
+      parse(pC).xy=tmp2;
+    ); //190827to
+    PTEXCEPTION=concat(TEXCEPTION,[pA,pC,pB]);
+  ,
+    pC=ptstr; pA=pC+"l"; pB=pC+"r"; 
+    PTEXCEPTION=concat(PTEXCEPTION,[pC]);
+  );
+  Listplot(pA+pB,[p1,p2],["Msg=n","notex",color,thick]);
+  Putonseg(pC,parse("sg"+pA+pB));
+);
+Strsplit(str,key):=( //180505
+  regional(start,out,tmp1,tmp2);
+  tmp1=Indexall(str,key);
+  out=[]; start=0;
+  forall(tmp1,
+    out=append(out,substring(str,start,#-1));
+    start=#;
+  );
+  out=append(out,substring(str,start,length(str)));
+  out;
+);
+Indexall(str,key):=(
+  regional(rest,out,flg,tmp,tmp1,);
+  out=[];
+  rest=str;
+  flg=0;
+  forall(1..(length(str)),
+    if(flg==0,
+      tmp=indexof(rest,key);
+      if(tmp>0,
+        tmp1=tmp+length(str)-length(rest);
+        out=append(out,tmp1);
+        rest=substring(rest,tmp,length(rest));
+      ,
+        flg=1;
+      );
+    );
+  );
+  out;
+);
 Listplot(list):=Listplot(list,[]);
 Listplot(Arg1,Arg2):=(
   regional(name,list,options,str);
@@ -407,36 +491,6 @@ Divoptions(options):=(
     opcindy=opcindy+",color->"+text(tmp);
   );
   [Ltype,Noflg,Inflg,Outflg,eqL,realL,strL,color,opstr,opcindy];
-);
-Strsplit(str,key):=( //180505
-  regional(start,out,tmp1,tmp2);
-  tmp1=Indexall(str,key);
-  out=[]; start=0;
-  forall(tmp1,
-    out=append(out,substring(str,start,#-1));
-    start=#;
-  );
-  out=append(out,substring(str,start,length(str)));
-  out;
-);
-Indexall(str,key):=(
-  regional(rest,out,flg,tmp,tmp1,);
-  out=[];
-  rest=str;
-  flg=0;
-  forall(1..(length(str)),
-    if(flg==0,
-      tmp=indexof(rest,key);
-      if(tmp>0,
-        tmp1=tmp+length(str)-length(rest);
-        out=append(out,tmp1);
-        rest=substring(rest,tmp,length(rest));
-      ,
-        flg=1;
-      );
-    );
-  );
-  out;
 );
 Colorname2cmyk(name):=( //181212
   regional(dL,code,tmp);
@@ -646,60 +700,6 @@ Lcrd(pt):=(
     tmp=pt;
   );
   re(tmp); //191231
-);
-Setglist():=(
-  GCLISTadd=GCLIST;
-  VLISTadd=VLIST; //200124[2lines]
-  FUNLISTadd=FUNLIST;
-);
-Addglist():=(
-  GCLIST=GCLISTadd;
-  VLIST=VLISTadd; //200124[2lines]
-  FUNLIST=FUNLISTadd;
-);
-Slider(ptstr,p1,p2):=Slider(ptstr,p1,p2,[]);
-Slider(ptstr,p1,p2,options):=(//190120
-  regional(pA,pB,pC,color,thick,sep,tmp,tmp1,tmp2);
-  color="Color=0.6*[0,0,1]"; //190120from
-  thick="size->2";
-  sep=0.3; //190824
-  forall(options,
-    tmp=Toupper(substring(#,0,1));
-    if(tmp=="C",
-      color=#;
-    );
-    if(tmp=="T",
-      tmp=Strsplit(#,"=");
-      thick="size->"+tmp_2;
-    );
-    if(tmp=="S",//190824from
-      tmp=Strsplit(#,"=");
-      sep=parse(tmp_2);
-    ); //190824to
-  );
-  tmp=Indexall(ptstr,"-");
-  if(length(tmp)>0,
-    pA=substring(ptstr,0,tmp_1-1); //190824from
-    pC=substring(ptstr,tmp_1,tmp_2-1);
-    pB=substring(ptstr,tmp_2,length(ptstr));
-    parse(pA).xy=p1;
-    parse(pB).xy=p2; //190824to
-    tmp1=pC+"position"; //190827from
-    if(!islist(parse(tmp1)),
-      tmp2=parse(pC).xy;
-      if(|tmp2-p1|<0.1,tmp2=p1+0.1*(p2-p1)/|p2-p1|);
-      if(|tmp2-p2|<0.1,tmp2=p2+0.1*(p1-p2)/|p1-p2|);
-      tmp=tmp1+"="+textformat(tmp2,6)+";";
-      parse(tmp);
-      parse(pC).xy=tmp2;
-    ); //190827to
-    PTEXCEPTION=concat(TEXCEPTION,[pA,pC,pB]);
-  ,
-    pC=ptstr; pA=pC+"l"; pB=pC+"r"; 
-    PTEXCEPTION=concat(PTEXCEPTION,[pC]);
-  );
-  Listplot(pA+pB,[p1,p2],["Msg=n","notex",color,thick]);
-  Putonseg(pC,parse("sg"+pA+pB));
 );
 Putonseg(name,sgstr):=(
   regional(seg,p1,p2);
@@ -1572,7 +1572,7 @@ if(A.x>=0,
   );
 );
 Expr(A,"s2",astr,["Size=1.5","notex"]);
-
+Listplot("yx",[[-6,-6],[6,6]],["do,1,1.5"]);
 fun1=Assign("y=a^x",["a",text(aa)]);
 Plotdata("1",fun1,"x",["dr,1.5","Num=100","Color=cyan"]);
 if(A.x!=0,
@@ -1611,9 +1611,9 @@ var cdy = CindyJS({
   ],
   ports: [{
     id: "CSCanvas",
-    width: 883,
-    height: 507,
-    transform: [{visibleRect: [-12.463182976513444, 7.651143217241844, 15.863691073065375, -8.613551169096164]}],
+    width: 703,
+    height: 479,
+    transform: [{visibleRect: [-8.773952494405217, 7.586982687118223, 13.778473844047681, -7.779464277489087]}],
     grid: 1.0,
     snap: true,
     background: "rgb(247,247,247)"
