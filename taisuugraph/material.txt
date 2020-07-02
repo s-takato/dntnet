@@ -33,8 +33,7 @@ item::対数の意味は　\fbox{$y=\log_a x\Longleftrightarrow x=a^y$}
 item::$y=a^x$の$x,y$を交換
 item::$x$軸と$y$軸も入れ替わる
 item::$x$軸が横，$y$軸が縦になるようにする
-item::次のURLをクリックして実行してみよう\\
-\normalsize\url{https://s-takato.github.io/dntnet/taisuugraph/sisuu2taisuu.html}
+item::下にある「対数関数のグラフ」を実行してみよう
 end
 
 %%%%%%%%%%%%
@@ -43,17 +42,17 @@ new::指数関数と対数関数
 \slidepage
 
 layer::{120}{0}
-%[1]::putnote::se{63}{17}::taisuu3,0.5
-%[2]::putnote::se{63}{17}::taisuu5,0.5
-%[3]::putnote::se{63}{17}::taisuu10,0.5
-%[4,-]::putnote::se{63}{17}::taisuum2,0.5
+%[1]::putnote::se{65}{0}::taisuu3,0.45
+%[2]::putnote::se{65}{0}::taisuu5,0.45
+%[3]::putnote::se{65}{0}::taisuu10,0.45
+%[4,-]::putnote::se{65}{0}::taisuum2,0.45
 end
 
 itemize
-item::{\normalsize\url{https://s-takato.github.io/dntnet/taisuugraph/taisuu.html}}
 item::$y=a^x$と$y=\log_a x$は\\$y=x$に関して対称
-item::このような関数を\\{\color{red}逆関数}という
+item::このような関数を互いに\\{\color{red}逆関数}という
 item::対数関数と指数関数は\\
 \hspace*{2zw}逆関数どうし
+item::下にある「指数関数と対数関数」を実行してみよう
 end
 

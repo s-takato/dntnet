@@ -1532,7 +1532,7 @@ Addax(param):=(
   ADDAXES=text(param);
 );
 Ketcindyjsfigure=0;
-Ketcindyjsscale=1;
+Ketcindyjsscale=0.8;
 
 Initglist();
 ctr=1;
@@ -1554,11 +1554,10 @@ Setglist();
 <script id="csdraw" type="text/x-cindyscript">
 Ketinit();
 Addglist();
-Setketcindyjs(["No=all"]);
+Setketcindyjs(["No=all","Scale=0.8"]);
 Ketcindyjsmain(["<pf8/fp>対数関数のグラフ"]);
 Setwindow([-6,6],[-6,6]);
 Slider("A",[-7,-7],[9,-7]);
-inspect(A,"ptsize",5);
 if(A.x>=0,
   aa=A.x+1;
   astr=text(aa);
@@ -1607,13 +1606,13 @@ var cdy = CindyJS({
   geometry: [
     {name: "NE", type: "Free", pos: [4.0, 4.0, 0.6666666666666666], color: [1.0,1.0,1.0], labeled: false, size: 2.0, border:false },
     {name: "SW", type: "Free", pos: [4.0, 4.0, -0.6666666666666666], color: [1.0,1.0,1.0], labeled: false, size: 2.0, border:false },
-    {name: "A", type: "Free", pos: [0.5714285714285714, -4.0, 0.5714285714285714], color: [1.0, 0.0, 0.0], labeled: false, size: 3.0, border: true }
+    {name: "A", type: "Free", pos: [0.5714285714285714, -4.0, 0.5714285714285714], color: [1.0, 0.0, 0.0], labeled: false, size: 6.0, border: true }
   ],
   ports: [{
     id: "CSCanvas",
-    width: 703,
-    height: 479,
-    transform: [{visibleRect: [-8.773952494405217, 7.586982687118223, 13.778473844047681, -7.779464277489087]}],
+    width: 568,
+    height: 400,
+    transform: [{visibleRect: [-8.773952494405217, 7.586982687118223, 14.003035699480355, -8.453149843787111]}],
     grid: 1.0,
     snap: true,
     background: "rgb(247,247,247)"
